@@ -1,13 +1,13 @@
 #pragma once
 
-#include <ncurses.h>
 #include "pacman.h"
+#include "Map.h"
 
 class Core
 {
 private:
     WINDOW *interface;
-    
+    Map     *map;
     void initNcurses();
 public:
             Core();

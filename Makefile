@@ -9,10 +9,12 @@ DIR_HDR = ./includes
 SRC = 
 SRC += main.cpp
 SRC += Core.cpp
+SRC += Map.cpp
 
 HDR = 
 HDR += pacman.h
 HDR += Core.h
+HDR += Map.h
 
 SRCS = $(addprefix $(DIR_SRC)/,$(SRC))
 OBJS = $(addprefix $(DIR_OBJ)/,$(SRC:.cpp=.o))

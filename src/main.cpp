@@ -1,11 +1,12 @@
 
 #include "Core.h"
 #include <iostream>
+#include <locale.h>
 
 int     main() {
+    setlocale(LC_ALL, "");
     Core    core;
 
     core.Start();
-    std::cout << "test" << std::endl;
     return (0);
 }

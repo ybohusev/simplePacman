@@ -2,13 +2,11 @@
 
 Core::Core() {
     initNcurses();
-	interface = newwin(5, 5, 10, 10);
-	box(interface, 0, 0);
-	wrefresh(interface);
-
+	map = new Map();
 }
 
 bool    Core::Start() {
+	map->drawMap();
     while(true){
         /* code */
     }
@@ -34,12 +32,10 @@ void Core::initNcurses() {
 	init_pair(9, COLOR_BLACK, COLOR_CYAN);
 	init_pair(11, COLOR_YELLOW, COLOR_BLACK);
     init_pair(10, COLOR_MAGENTA, COLOR_BLACK);
-	// printw("Hello\n");
-	// refresh();
-	// getch();
-	// endwin();
 }
 
 Core::~Core() {
-	delwin(interface);
+	delete map;
+	// delwin(interface);
+	endwin();
 }
