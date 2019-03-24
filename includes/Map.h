@@ -1,15 +1,21 @@
 #pragma once
 
 #include "pacman.h"
+#include "Player.h"
+#include "Treasure.h"
 
 class Map
 {
 private:
     std::ifstream fin;
-    std::string   mapRepr[30];
-    WINDOW        *statMap;
+    char          mapRepr[30][100];
+    Player        *player;   
+    Treasure      *treasure;
 public:
             Map();
-    void    drawMap();
+    void    drawMap(WINDOW *win);
+    void    drawObjects(WINDOW *win, WINDOW *test);
+    void    moveObjects(WINDOW *win, int key);
+    void    playerTreasureColl(WINDOW *test);
             ~Map();
 };

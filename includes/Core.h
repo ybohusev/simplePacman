@@ -1,5 +1,6 @@
 #pragma once
 
+#include <unistd.h>
 #include "pacman.h"
 #include "Map.h"
 
@@ -7,10 +8,14 @@ class Core
 {
 private:
     WINDOW *interface;
-    Map     *map;
-    void initNcurses();
+    WINDOW *gameField;
+    Map    *map;
+    void   initNcurses();
+    void   draw();
+    void   move();
+    void   collision();
 public:
-            Core();
-    bool    Start();
-            ~Core();
+           Core();
+    bool   Start();
+           ~Core();
 };

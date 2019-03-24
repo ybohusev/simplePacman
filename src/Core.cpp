@@ -1,23 +1,45 @@
 #include "Core.h"
 
 Core::Core() {
-    initNcurses();
+	initNcurses();
 	map = new Map();
 }
 
 bool    Core::Start() {
-	map->drawMap();
+	// map->drawMap(gameField);
+	// wrefresh(gameField);
     while(true){
-        /* code */
+		move();
+		collision();
+		draw();
     }
     return (true);
 }
 
-void Core::initNcurses() {
+void	Core::draw() {
+	werase(gameField);
+	werase(interface);
+	map->drawMap(gameField);
+	map->drawObjects(gameField, interface);
+	wrefresh(gameField);
+	wrefresh(interface);
+}
+
+void	Core::move() {
+	int key;
+	if ((key = wgetch(gameField)) != ERR)
+		map->moveObjects(gameField, key);
+}
+
+void	Core::initNcurses() {
     initscr();
-	// raw();
-	// keypad(stdscr, TRUE);
+	clear();
 	noecho();
+	cbreak();
+	gameField = newwin(30, 100, 0, 0);
+	interface = newwin(30, 20, 0, 101);
+	nodelay(gameField, TRUE);
+	keypad(gameField, TRUE);
 	curs_set(0);
 	start_color();
 	init_color(COLOR_MAGENTA, 500, 500, 500);
@@ -34,8 +56,13 @@ void Core::initNcurses() {
     init_pair(10, COLOR_MAGENTA, COLOR_BLACK);
 }
 
+void	Core::collision() {
+	map->playerTreasureColl(interface);
+}
+
 Core::~Core() {
 	delete map;
-	// delwin(interface);
+	delwin(gameField);
+	delwin(interface);
 	endwin();
 }

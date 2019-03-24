@@ -1,6 +1,6 @@
 NAME = Pacman
 COMP = clang++
-FLAGS = -std=c++98 -lncurses -Wall -Wextra -Werror
+FLAGS = -std=c++98 -lncursesw -Wall -Wextra -Werror
 
 DIR_SRC = ./src
 DIR_OBJ = ./obj
@@ -10,11 +10,15 @@ SRC =
 SRC += main.cpp
 SRC += Core.cpp
 SRC += Map.cpp
+SRC += Player.cpp
+SRC += Treasure.cpp
 
 HDR = 
 HDR += pacman.h
 HDR += Core.h
 HDR += Map.h
+HDR += Player.h
+HDR += Treasure.h
 
 SRCS = $(addprefix $(DIR_SRC)/,$(SRC))
 OBJS = $(addprefix $(DIR_OBJ)/,$(SRC:.cpp=.o))
