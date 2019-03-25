@@ -12,6 +12,8 @@ SRC += Core.cpp
 SRC += Map.cpp
 SRC += Player.cpp
 SRC += Treasure.cpp
+SRC += Enemy.cpp
+SRC += Lee.cpp
 
 HDR = 
 HDR += pacman.h
@@ -19,6 +21,8 @@ HDR += Core.h
 HDR += Map.h
 HDR += Player.h
 HDR += Treasure.h
+HDR += Enemy.h
+HDR += Lee.h
 
 SRCS = $(addprefix $(DIR_SRC)/,$(SRC))
 OBJS = $(addprefix $(DIR_OBJ)/,$(SRC:.cpp=.o))

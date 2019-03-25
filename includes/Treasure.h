@@ -13,6 +13,6 @@ public:
             Treasure(char *symbol, char map[30][100]);
     
     void    delTreasure(std::pair<int, int> playerCoords);
-    void    drawTreasure(WINDOW *win, WINDOW *test);
+    void    drawTreasure(WINDOW *win);
     ~Treasure();
 };

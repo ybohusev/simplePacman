@@ -3,12 +3,12 @@
 Core::Core() {
 	initNcurses();
 	map = new Map();
+	frames = 0;
 }
 
 bool    Core::Start() {
-	// map->drawMap(gameField);
-	// wrefresh(gameField);
     while(true){
+		frames++;
 		move();
 		collision();
 		draw();
@@ -18,17 +18,14 @@ bool    Core::Start() {
 
 void	Core::draw() {
 	werase(gameField);
-	werase(interface);
 	map->drawMap(gameField);
-	map->drawObjects(gameField, interface);
+	map->drawObjects(gameField);
 	wrefresh(gameField);
-	wrefresh(interface);
 }
 
 void	Core::move() {
-	int key;
-	if ((key = wgetch(gameField)) != ERR)
-		map->moveObjects(gameField, key);
+	int key = wgetch(gameField);
+		map->moveObjects(key, frames);
 }
 
 void	Core::initNcurses() {
@@ -38,8 +35,8 @@ void	Core::initNcurses() {
 	cbreak();
 	gameField = newwin(30, 100, 0, 0);
 	interface = newwin(30, 20, 0, 101);
-	nodelay(gameField, TRUE);
 	keypad(gameField, TRUE);
+	nodelay(gameField, TRUE);
 	curs_set(0);
 	start_color();
 	init_color(COLOR_MAGENTA, 500, 500, 500);
@@ -57,7 +54,12 @@ void	Core::initNcurses() {
 }
 
 void	Core::collision() {
-	map->playerTreasureColl(interface);
+	map->playerTreasureColl();
+	int lives = map->playerEnemyColl();
+
+	// for (int i = 0; i < lives; i++)
+		mvwprintw(interface, 0, 0, "Lives: %d", lives);
+	wrefresh(interface);
 }
 
 Core::~Core() {

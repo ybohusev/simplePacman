@@ -14,6 +14,8 @@ private:
     void   draw();
     void   move();
     void   collision();
+
+    int    frames;
 public:
            Core();
     bool   Start();
