@@ -14,12 +14,15 @@ private:
     Treasure      *treasure;
     Enemy         *firstEnemy;
     Enemy         *secondEnemy;
+    int           xExit;
+    int           yExit;
 public:
             Map();
     void    drawMap(WINDOW *win);
     void    drawObjects(WINDOW *win);
     void    moveObjects(int key, int frames);
-    void    playerTreasureColl();
+    int     playerTreasureColl();
     int     playerEnemyColl();
+    bool    isExit();
             ~Map();
 };

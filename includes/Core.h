@@ -7,11 +7,19 @@
 class Core
 {
 private:
+    bool   fail;
+    bool   win;
+    int    lives;
+    int    score;
+
     WINDOW *interface;
     WINDOW *gameField;
+    WINDOW *splash;
     Map    *map;
+
     void   initNcurses();
     void   draw();
+    void   drawInterface();
     void   move();
     void   collision();
 
@@ -19,5 +27,6 @@ private:
 public:
            Core();
     bool   Start();
+    void   end();
            ~Core();
 };

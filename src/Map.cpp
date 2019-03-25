@@ -2,6 +2,7 @@
 
 Map::Map() {
     fin.open("./maps/1.map");
+    std::string tmp;
     for (int i = 0; i < 30; i++) {
         for (int j = 0; j < 100; j++) {
             fin.get(mapRepr[i][j]);
@@ -11,6 +12,10 @@ Map::Map() {
                 firstEnemy = new Enemy("😈", j, i);
             else if (mapRepr[i][j] == '4')
                 secondEnemy = new Enemy("💀", j, i);
+            else if (mapRepr[i][j] == '5') {
+                yExit = i;
+                xExit = j;
+            }
         }
         fin.ignore();
     }
@@ -19,14 +24,20 @@ Map::Map() {
 }
 
 void    Map::drawMap(WINDOW *win) {
-    wattron(win, COLOR_PAIR(7));
     for (int i = 0; i < 30; i++) {
         for(int j = 0; j < 100; j++) {
-            if (mapRepr[i][j] == '1')
+            if (mapRepr[i][j] == '1') {
+                wattron(win, COLOR_PAIR(7));
                 mvwaddch(win, i, j, ' ');
+                wattroff(win, COLOR_PAIR(7));
+            }
+            else if (mapRepr[i][j] == '5') {
+                wattron(win, COLOR_PAIR(1));
+                mvwaddch(win, i, j, ' ');
+                wattroff(win, COLOR_PAIR(1));
+            }
         }
     }
-    wattroff(win, COLOR_PAIR(7));
 }
 
 void    Map::drawObjects(WINDOW *win) {
@@ -44,8 +55,10 @@ void    Map::moveObjects(int key, int frames) {
         secondEnemy->moveEnemy(mapRepr, player->getCoords());
 }
 
-void    Map::playerTreasureColl() {
-    treasure->delTreasure(player->getCoords());
+int    Map::playerTreasureColl() {
+    if (treasure->delTreasure(player->getCoords()))
+        player->setScore();
+    return (player->getScore());
 }
 
 int     Map::playerEnemyColl() {
@@ -57,6 +70,14 @@ int     Map::playerEnemyColl() {
             player->setLives();
         }
     return (player->getLives());
+}
+
+bool    Map::isExit() {
+    std::pair<int, int> playerCoord = player->getCoords();
+    if (xExit == std::get<0>(playerCoord) &&
+        yExit == std::get<1>(playerCoord))
+        return (true);
+    return (false);
 }
 
 Map::~Map() {

@@ -22,15 +22,16 @@ void    Treasure::drawTreasure(WINDOW *win) {
     
 }
 
-void    Treasure::delTreasure(std::pair<int, int> playerCoords) {
+bool    Treasure::delTreasure(std::pair<int, int> playerCoords) {
      for (std::vector<std::pair<int, int>>::iterator it = _coords.begin();
                                             it != _coords.end(); it++) {
         if (std::get<0>(playerCoords) == std::get<1>(*it) && 
             std::get<1>(playerCoords) == std::get<0>(*it)) {
             _coords.erase(it);
-            break ;
+            return (true);
         }
     }
+    return (false);
 }
 
 Treasure::~Treasure() {

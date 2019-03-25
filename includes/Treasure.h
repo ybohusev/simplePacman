@@ -12,7 +12,7 @@ public:
             Treasure();
             Treasure(char *symbol, char map[30][100]);
     
-    void    delTreasure(std::pair<int, int> playerCoords);
+    bool    delTreasure(std::pair<int, int> playerCoords);
     void    drawTreasure(WINDOW *win);
     ~Treasure();
 };

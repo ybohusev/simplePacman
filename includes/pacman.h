@@ -2,6 +2,9 @@
 
 #include <ncurses.h>
 #include <fstream>
-#include <iostream>
 #include <vector>
 #include <utility>
+#include <string>
+
+#define W 100
+#define H 30
